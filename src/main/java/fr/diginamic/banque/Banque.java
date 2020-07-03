@@ -23,6 +23,7 @@ public class Banque {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="ID")
 	private Integer id;
 	
 	@Column(name="NOM")
