@@ -79,7 +79,8 @@ public class TestJpa {
 	        	for(Livre livreListe:listeDeLivre) {
 	        		System.out.println(livreListe.getAuteur()+" "+livreListe.getTitre());
 	        	}
-	        
+	        entityManager.close();
+	        entityManagerFactory.close();
 	}
 
 }

@@ -4,13 +4,18 @@
 package fr.diginamic.tp3;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import fr.diginamic.jpa.Livre;
 
 
 /**
@@ -33,10 +38,16 @@ public class Emprunt {
 	
 	@ManyToOne
 	@JoinColumn(name= "ID_CLIENT")
-	private Integer idClient;
+	private Client idClient;
 	
+	@Id
 	@Column (name ="ID")
 	private Integer id;
+	
+	@ManyToMany
+	@JoinTable(name = "COMPO", joinColumns = @JoinColumn(name="ID_EMP", referencedColumnName = "ID"),
+							inverseJoinColumns = @JoinColumn(name="ID_LIV", referencedColumnName = "ID"))
+	private Set<Livre>livre;
 	
 	/**
 	 * Constructeur
@@ -44,6 +55,20 @@ public class Emprunt {
 	 */
 	public Emprunt() {
 		super();
+	}
+
+	/** Getter
+	 * @return the livre
+	 */
+	public Set<Livre> getLivre() {
+		return livre;
+	}
+
+	/** Setter
+	 * @param livre the livre to set
+	 */
+	public void setLivre(Set<Livre> livre) {
+		this.livre = livre;
 	}
 
 	/** Getter
@@ -91,14 +116,14 @@ public class Emprunt {
 	/** Getter
 	 * @return the idClient
 	 */
-	public Integer getIdClient() {
+	public Client getIdClient() {
 		return idClient;
 	}
 
 	/** Setter
 	 * @param idClient the idClient to set
 	 */
-	public void setIdClient(Integer idClient) {
+	public void setIdClient(Client idClient) {
 		this.idClient = idClient;
 	}
 
@@ -114,6 +139,12 @@ public class Emprunt {
 	 */
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		return dateDebut + " doit être retourné le " + dateFin + ",( delai: " + delai+" jours)" + ", Nom, prénom et identifiant de l'emprunteur: "
+				+ idClient + id + livre + "]";
 	}
 	
 	

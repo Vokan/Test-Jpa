@@ -3,11 +3,14 @@
  */
 package fr.diginamic.tp3;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +20,7 @@ import javax.persistence.Table;
 @Entity
 @Table (name = "CLIENT")
 public class Client {
+	
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,10 +32,33 @@ public class Client {
 	@Column(name ="PRENOM")
 	private String prenom;
 	
+	@OneToMany(mappedBy = "idClient")
+	private List<Emprunt> emprunt;
 	
 	public Client() {
 		super();
 }
+
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + "]";
+	}
+
+	/** Getter
+	 * @return the emprunt
+	 */
+	public List<Emprunt> getEmprunt() {
+		return emprunt;
+	}
+
+
+	/** Setter
+	 * @param emprunt the emprunt to set
+	 */
+	public void setEmprunt(List<Emprunt> emprunt) {
+		this.emprunt = emprunt;
+	}
 
 
 	/** Getter
@@ -80,5 +107,11 @@ public class Client {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
+
+
+	}
+
+
 	
-}
+	
+	

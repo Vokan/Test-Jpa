@@ -1,9 +1,14 @@
 package fr.diginamic.jpa;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import fr.diginamic.tp3.Emprunt;
 
 @Entity // indique que cette classe correspond à une table => Plat est une entité JPA
 @Table(name = "LIVRE")
@@ -20,7 +25,10 @@ public class Livre {
 	@Column(name ="TITRE")
 	private String titre;
 	
+	@ManyToMany(mappedBy="livre")
+	private Set<Emprunt>emprunt;
 	
+
 	/** Constructeur
 	 * 
 	 */
@@ -28,6 +36,20 @@ public class Livre {
 		super();
 	}
 
+	
+	/** Getter
+	 * @return the emprunt
+	 */
+	public Set<Emprunt> getEmprunt() {
+		return emprunt;
+	}
+	
+	/** Setter
+	 * @param emprunt the emprunt to set
+	 */
+	public void setEmprunt(Set<Emprunt> emprunt) {
+		this.emprunt = emprunt;
+	}
 
 	/** Getter
 	 * @return the id
@@ -79,7 +101,7 @@ public class Livre {
 
 	@Override
 	public String toString() {
-		return "Livre [id=" + id + ", auteur=" + auteur + ", titre=" + titre + "]";
+		return "le livre dont la ref: " + id + ", corresponde au titre: " + titre + ", l'auteur est: "+ auteur;
 	}
 
 
